@@ -1,0 +1,143 @@
+﻿html,
+body,
+#root,
+.app {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.app {
+    font-family: "Segoe UI", Segoe, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    overflow-y: hidden;
+    cursor: default;
+}
+
+    .app .page {
+        height: 100%;
+        width: calc(100% - 48px);
+        display: inline-block;
+        vertical-align: top;
+        overflow-y: hidden;
+    }
+
+        .app .page .content {
+            height: 100%;
+        }
+
+.scrollable {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.blur {
+    filter: blur(5px);
+}
+
+.noselect {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -ms-touch-select: none;
+}
+
+.center {
+    text-align: center;
+}
+
+.section-panel {
+    margin: 2px 0;
+    padding: 2px 10px;
+    border: 1px solid #888888;
+    border-width: 0 5px;
+}
+
+    .section-panel:hover {
+        border-color: rgb(64, 192, 255);
+        background-color: rgb(64, 192, 255);
+        background-color: rgba(64, 192, 255, 0.15);
+    }
+
+.header2 {
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 10px 0;
+}
+
+.empty {
+    border: 1px solid #222222;
+    margin: 10px 0;
+    padding: 15px 0;
+    color: #808080;
+    text-align: center;
+    text-transform: lowercase;
+}
+
+.modal-container {
+    z-index: 20;
+    width: 90%;
+    max-width: 800px;
+    height: calc(100% - 140px);
+    margin: 50px auto;
+}
+
+    .modal-container .modal-title-bar {
+        height: 40px;
+        background-color: rgb(64, 192, 255);
+    }
+
+        .modal-container .modal-title-bar .modal-title {
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: black;
+            line-height: 40px;
+            vertical-align: middle;
+            padding: 0 15px;
+            width: calc(100% - 80px);
+        }
+
+        .modal-container .modal-title-bar .modal-btn {
+            float: right;
+            display: inline-block;
+            vertical-align: top;
+            margin: 5px;
+            height: 30px;
+            width: 30px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+            .modal-container .modal-title-bar .modal-btn:hover {
+                background-color: rgb(0, 0, 0);
+                background-color: rgba(0, 0, 0, 0.2);
+            }
+
+    .modal-container .modal-content-pane {
+        padding: 5px 15px 10px 15px;
+        border-left: 2px solid rgb(64, 192, 255);
+        border-right: 2px solid rgb(64, 192, 255);
+        border-bottom: 2px solid rgb(64, 192, 255);
+        max-height: calc(100%);
+        overflow-y: auto;
+        background-color: white;
+    }

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <title>Text Mixer</title>
+
+    <!-- React -->
+    <script src="scripts/packages/react.js"></script>
+    <script src="scripts/packages/react-dom.js"></script>
+
+    <!-- Styling -->
+    <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="style/overrides.css">
+    <link rel="stylesheet" type="text/css" href="style/controls.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/code.js"></script>
+    <script>
+        ReactDOM.render(
+            React.createElement(App, null),
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>

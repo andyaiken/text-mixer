@@ -1,0 +1,163 @@
+﻿div,
+img,
+button {
+    transition:
+        background-color 0.2s ease-in-out,
+        color 0.2s ease-in-out,
+        border-color 0.2s ease-in-out,
+        transform 0.2s ease-in-out
+}
+
+body {
+    background-color: white;
+    color: black;
+}
+
+b, strong {
+    font-weight: 600;
+}
+
+p {
+    margin: 6px 0;
+}
+
+ul, ol {
+    padding-left: 20px;
+    margin: 5px 0;
+}
+
+li {
+    margin: 5px 0;
+}
+
+h1, h2, h3, h4, h5,
+.h1, .h2, .h3, .h4, .h5 {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+h1,
+.h1 {
+    font-size: 16px;
+}
+
+h2,
+.h2 {
+    font-size: 15px;
+}
+
+h3,
+.h3 {
+    font-size: 14px;
+}
+
+h4,
+.h4 {
+    font-size: 13px;
+}
+
+h5,
+.h5 {
+    font-size: 12px;
+}
+
+blockquote {
+    padding: 5px;
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+code {
+    padding: 2px 5px;
+    background-color: #151515;
+    color: black;
+    border-radius: 0;
+    border: 1px solid #222222;
+}
+
+pre {
+    padding: 5px;
+    margin: 5px 0;
+    font-size: 12px;
+    line-height: normal;
+    color: black;
+    border-radius: 0;
+    border-color: #222222;
+}
+
+    pre code {
+        border: none;
+    }
+
+table {
+    margin: 10px;
+    border-collapse: collapse;
+}
+
+    table td, th {
+        border: 1px solid #222222;
+        padding: 5px;
+        background-color: white;
+    }
+
+hr {
+    margin: 20px 10px;
+    border-color: rgb(64, 192, 255);
+    border-top-width: 2px;
+}
+
+a {
+    color: rgb(64, 192, 255);
+    border: 1px solid rgb(64, 192, 255);
+    border: 1px solid rgba(64, 192, 255, 0.25);
+    padding: 2px 5px;
+    text-decoration: none;
+}
+
+    a:hover,
+    a:active,
+    a:focus {
+        background-color: rgb(64, 192, 255);
+        background-color: rgba(64, 192, 255, 0.3);
+        color: rgb(64, 192, 255);
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: rgb(64, 192, 255);
+        text-decoration: none;
+    }
+    
+.btn {
+    border-radius: 0;
+    border: 1px solid #222222;
+    background-color: #505050;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    margin: 10px 0;
+    font-size: 12px;
+    color: white;
+}
+
+    .btn:hover {
+        border-color: rgb(64, 192, 255);
+        background-color: rgb(64, 192, 255);
+        background-color: rgba(64, 192, 255, 0.5);
+        color: white;
+    }
+
+    .btn:focus {
+        color: white;
+    }
+
+.form-control {
+    margin: 10px 0;
+    font-size: 12px;
+    border: 1px solid #222222;
+    border-radius: 0;
+}
+
+    .form-control:hover {
+        border-color: rgb(64, 192, 255);
+    }

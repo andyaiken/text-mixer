@@ -1,0 +1,103 @@
+﻿.selector {
+    margin: 10px 0;
+    height: 40px;
+}
+
+    .selector .option {
+        display: inline-block;
+        text-align: center;
+        padding: 3px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        height: 33px;
+        line-height: 25px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 2px solid rgb(128, 128, 128);
+        border-bottom: 2px solid rgba(128, 128, 128, 0.5);
+    }
+
+        .selector .option:hover {
+            border-bottom: 2px solid rgb(64, 192, 255);
+        }
+
+        .selector .option.selected {
+            cursor: default;
+            background-color: rgb(64, 192, 255);
+            background-color: rgba(64, 192, 255, 0.2);
+            border-bottom: 2px solid rgb(64, 192, 255);
+            cursor: default;
+        }
+
+.sidebar {
+    height: 100%;
+    background-color: #EAEAEA;
+    color: black;
+}
+
+    .sidebar.full {
+        width: 250px;
+    }
+
+    .sidebar.mini {
+        width: 48px;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .sidebar .menu-button {
+        cursor: pointer;
+        height: 40px;
+    }
+
+        .sidebar .menu-button:hover {
+            background-color: rgb(64, 192, 255);
+            background-color: rgba(64, 192, 255, 0.5);
+        }
+
+        .sidebar .menu-button .image {
+            width: 48px;
+            height: 40px;
+            padding: 5px;
+        }
+
+    .sidebar .link {
+        padding: 5px;
+        cursor: pointer;
+        margin: 15px 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+        .sidebar .link .link-icon {
+            height: 30px;
+            width: 38px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .sidebar .link .link-text {
+            padding-left: 10px;
+            height: 30px;
+            line-height: 30px;
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .sidebar .link:hover,
+        .sidebar .link.active {
+            background-color: rgb(64, 192, 255);
+            background-color: rgba(64, 192, 255, 0.5);
+        }
+
+    .sidebar.mini .link {
+        width: 48px;
+    }
+
+    .sidebar.full .link {
+        width: 250px;
+    }

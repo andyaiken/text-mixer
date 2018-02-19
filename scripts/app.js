@@ -88,6 +88,15 @@ var App = function (_React$Component) {
 
             var modal = null;
             if (this.state.output) {
+                var lines = [];
+                for (var index = 0; index != this.state.output.length; ++index) {
+                    var line = this.state.output[index];
+                    lines.push(React.createElement(
+                        "div",
+                        { key: index },
+                        line
+                    ));
+                }
                 modal = React.createElement(
                     "div",
                     { className: "overlay" },
@@ -109,7 +118,7 @@ var App = function (_React$Component) {
                         React.createElement(
                             "div",
                             { className: "modal-content-pane" },
-                            this.state.output
+                            lines
                         )
                     )
                 );

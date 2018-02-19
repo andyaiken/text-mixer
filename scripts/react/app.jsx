@@ -61,6 +61,15 @@ class App extends React.Component {
     render() {
         var modal = null;
         if (this.state.output) {
+            var lines = [];
+            for (var index = 0; index != this.state.output.length; ++index) {
+                var line = this.state.output[index];
+                lines.push(
+                    <div key={index}>
+                        {line}
+                    </div>
+                );
+            }
             modal = (
                 <div className="overlay">
                     <div className="modal-container">
@@ -69,7 +78,7 @@ class App extends React.Component {
                             <img className="modal-btn" src="resources/close.svg" title="Close" onClick={() => this.closeModal()} />
                         </div>
                         <div className="modal-content-pane">
-                            {this.state.output}
+                            {lines}
                         </div>
                     </div>
                 </div>

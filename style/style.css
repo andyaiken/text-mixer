@@ -9,14 +9,14 @@ body,
 
 .app {
     font-family: "Segoe UI", Segoe, Helvetica, Arial, sans-serif;
-    font-size: 12px;
+    font-size: 15px;
     overflow-y: hidden;
     cursor: default;
 }
 
     .app .page {
         height: 100%;
-        width: calc(100% - 48px);
+        width: calc(100% - 250px);
         display: inline-block;
         vertical-align: top;
         overflow-y: hidden;
@@ -133,7 +133,7 @@ body,
             }
 
     .modal-container .modal-content-pane {
-        padding: 5px 15px 10px 15px;
+        padding: 20px;
         border-left: 2px solid rgb(64, 192, 255);
         border-right: 2px solid rgb(64, 192, 255);
         border-bottom: 2px solid rgb(64, 192, 255);

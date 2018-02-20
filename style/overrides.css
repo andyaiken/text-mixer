@@ -153,7 +153,7 @@ a {
 
 .form-control {
     margin: 10px 0;
-    font-size: 12px;
+    font-size: 14px;
     border: 1px solid #222222;
     border-radius: 0;
 }
@@ -161,3 +161,7 @@ a {
     .form-control:hover {
         border-color: rgb(64, 192, 255);
     }
+
+textarea.form-control {
+    resize: vertical;
+}

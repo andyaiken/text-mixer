@@ -19,20 +19,12 @@ var App = function (_React$Component) {
         _this.state = {
             sources: [""],
             output: null,
-            view: 0,
-            showSidebar: false
+            view: 0
         };
         return _this;
     }
 
     _createClass(App, [{
-        key: "toggleSidebar",
-        value: function toggleSidebar() {
-            this.setState({
-                showSidebar: !this.state.showSidebar
-            });
-        }
-    }, {
         key: "newSource",
         value: function newSource() {
             this.state.sources.push("");
@@ -65,38 +57,42 @@ var App = function (_React$Component) {
         key: "setContent",
         value: function setContent(sourceIndex, value) {
             this.state.sources[sourceIndex] = value;
-            this.setState(this.state);
-        }
-    }, {
-        key: "nudgeValue",
-        value: function nudgeValue(source, name, delta) {
-            var value = source[name] + delta;
-            this.changeValue(source, name, value);
-        }
-    }, {
-        key: "changeValue",
-        value: function changeValue(source, name, value) {
-            if (source) {
-                source[name] = value;
-            }
-            this.setState(this.state);
+            this.setState({
+                sources: this.state.sources
+            });
         }
     }, {
         key: "render",
         value: function render() {
             var _this2 = this;
 
-            var modal = null;
+            var modalTitle = null;
+            var modalContent = null;
+
             if (this.state.output) {
-                var lines = [];
+                var text = "";
                 for (var index = 0; index != this.state.output.length; ++index) {
                     var line = this.state.output[index];
-                    lines.push(React.createElement(
-                        "div",
-                        { key: index },
-                        line
-                    ));
+                    if (text) {
+                        text += "\n";
+                    }
+                    text += line;
                 }
+                if (text) {
+                    modalTitle = "Output";
+                    modalContent = React.createElement("textarea", { className: "form-control", rows: 10, value: text, readOnly: true });
+                } else {
+                    modalTitle = "No Output";
+                    modalContent = React.createElement(
+                        "div",
+                        null,
+                        "I couldn't generate any output text. It might help to add more source text."
+                    );
+                }
+            }
+
+            var modal = null;
+            if (modalTitle && modalContent) {
                 modal = React.createElement(
                     "div",
                     { className: "overlay" },
@@ -109,7 +105,7 @@ var App = function (_React$Component) {
                             React.createElement(
                                 "div",
                                 { className: "modal-title noselect" },
-                                "Output"
+                                modalTitle
                             ),
                             React.createElement("img", { className: "modal-btn", src: "resources/close.svg", title: "Close", onClick: function onClick() {
                                     return _this2.closeModal();
@@ -118,53 +114,25 @@ var App = function (_React$Component) {
                         React.createElement(
                             "div",
                             { className: "modal-content-pane" },
-                            lines
+                            modalContent
                         )
                     )
                 );
             }
 
             var sidebarItems = [{
-                name: "New Source",
+                name: "New Source Tab",
                 icon: "resources/plus.svg",
                 click: function click() {
                     return _this2.newSource();
                 }
             }, {
                 name: "Generate Output",
-                icon: "resources/party.svg",
+                icon: "resources/list.svg",
                 click: function click() {
                     return _this2.generateOutput();
                 }
             }];
-
-            var sidebarFull = null;
-            var sidebarMini = null;
-            if (this.state.showSidebar) {
-                sidebarFull = React.createElement(
-                    "div",
-                    { className: "overlay", onClick: function onClick() {
-                            return _this2.toggleSidebar();
-                        } },
-                    React.createElement(Sidebar, {
-                        mode: "full",
-                        items: sidebarItems,
-                        options: this.state.options,
-                        toggleSidebar: function toggleSidebar() {
-                            return _this2.toggleSidebar();
-                        }
-                    })
-                );
-            }
-            sidebarMini = React.createElement(Sidebar, {
-                mode: "mini",
-                blur: modal !== null,
-                items: sidebarItems,
-                options: this.state.options,
-                toggleSidebar: function toggleSidebar() {
-                    return _this2.toggleSidebar();
-                }
-            });
 
             var views = [];
             for (var index = 0; index != this.state.sources.length; ++index) {
@@ -175,43 +143,40 @@ var App = function (_React$Component) {
                 });
             }
 
-            var content = React.createElement(
-                "div",
-                null,
-                React.createElement(
-                    "div",
-                    { className: "col-lg-12 col-md-12 col-sm-12 col-xs-12" },
-                    React.createElement(Selector, {
-                        tabs: true,
-                        options: views,
-                        selectedID: this.state.view,
-                        select: function select(optionID) {
-                            return _this2.selectSource(optionID);
-                        }
-                    }),
-                    React.createElement(
-                        "div",
-                        null,
-                        React.createElement("textarea", { className: "form-control", rows: 10, placeholder: "text", value: this.state.sources[this.state.view], onChange: function onChange(e) {
-                                return _this2.setContent(_this2.state.view, e.target.value);
-                            } })
-                    )
-                )
-            );
-
             return React.createElement(
                 "div",
                 { className: "app" },
-                sidebarFull,
                 modal,
-                sidebarMini,
+                React.createElement(Sidebar, {
+                    title: "Text Mixer",
+                    blur: modal !== null,
+                    items: sidebarItems
+                }),
                 React.createElement(
                     "div",
-                    { className: this.state.showSidebar ? "page blur" : "page" },
+                    { className: modal !== null ? "page blur" : "page" },
                     React.createElement(
                         "div",
                         { className: "content scrollable" },
-                        content
+                        React.createElement(
+                            "div",
+                            { className: "col-lg-12 col-md-12 col-sm-12 col-xs-12" },
+                            React.createElement(Selector, {
+                                tabs: true,
+                                options: views,
+                                selectedID: this.state.view,
+                                select: function select(optionID) {
+                                    return _this2.selectSource(optionID);
+                                }
+                            }),
+                            React.createElement(
+                                "div",
+                                null,
+                                React.createElement("textarea", { className: "form-control", rows: 10, placeholder: "enter text here", value: this.state.sources[this.state.view], onChange: function onChange(e) {
+                                        return _this2.setContent(_this2.state.view, e.target.value);
+                                    } })
+                            )
+                        )
                     )
                 )
             );
@@ -244,28 +209,23 @@ var Selector = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            try {
-                var options = this.props.options.map(function (option) {
-                    return React.createElement(SelectorOption, {
-                        key: option.id,
-                        option: option,
-                        selected: option.id === _this2.props.selectedID,
-                        count: _this2.props.options.length,
-                        select: function select(optionID) {
-                            return _this2.props.select(optionID);
-                        }
-                    });
+            var options = this.props.options.map(function (option) {
+                return React.createElement(SelectorOption, {
+                    key: option.id,
+                    option: option,
+                    selected: option.id === _this2.props.selectedID,
+                    count: _this2.props.options.length,
+                    select: function select(optionID) {
+                        return _this2.props.select(optionID);
+                    }
                 });
+            });
 
-                return React.createElement(
-                    "div",
-                    { className: "selector" },
-                    options
-                );
-            } catch (ex) {
-                log(ERROR_RENDERING, ex);
-                return null;
-            }
+            return React.createElement(
+                "div",
+                { className: "selector" },
+                options
+            );
         }
     }]);
 
@@ -292,39 +252,34 @@ var SelectorOption = function (_React$Component2) {
         value: function render() {
             var _this4 = this;
 
-            try {
-                var width = "calc((100% - 1px) / " + this.props.count + ")";
+            var width = "calc((100% - 1px) / " + this.props.count + ")";
 
-                var style = "option noselect";
-                if (this.props.selected) {
-                    style += " selected";
-                }
-
-                var smallText = this.props.option.text;
-                if (this.props.option.smallText) {
-                    smallText = this.props.option.smallText;
-                }
-
-                return React.createElement(
-                    "div",
-                    { key: this.props.option.id, className: style, style: { width: width }, title: this.props.option.text, onClick: function onClick(e) {
-                            return _this4.click(e);
-                        } },
-                    React.createElement(
-                        "div",
-                        { className: "hidden-sm hidden-xs" },
-                        this.props.option.text
-                    ),
-                    React.createElement(
-                        "div",
-                        { className: "hidden-lg hidden-md" },
-                        smallText
-                    )
-                );
-            } catch (ex) {
-                log(ERROR_RENDERING, ex);
-                return null;
+            var style = "option noselect";
+            if (this.props.selected) {
+                style += " selected";
             }
+
+            var smallText = this.props.option.text;
+            if (this.props.option.smallText) {
+                smallText = this.props.option.smallText;
+            }
+
+            return React.createElement(
+                "div",
+                { key: this.props.option.id, className: style, style: { width: width }, title: this.props.option.text, onClick: function onClick(e) {
+                        return _this4.click(e);
+                    } },
+                React.createElement(
+                    "div",
+                    { className: "hidden-sm hidden-xs" },
+                    this.props.option.text
+                ),
+                React.createElement(
+                    "div",
+                    { className: "hidden-lg hidden-md" },
+                    smallText
+                )
+            );
         }
     }]);
 
@@ -352,54 +307,32 @@ var Sidebar = function (_React$Component) {
     _createClass(Sidebar, [{
         key: "render",
         value: function render() {
-            var _this2 = this;
+            var nav = [];
+            this.props.items.forEach(function (item) {
+                nav.push(React.createElement(SidebarLink, {
+                    key: item.name,
+                    item: item
+                }));
+            });
 
-            try {
-                var nav = [];
-                var hrIndex = 0;
-                this.props.items.forEach(function (item) {
-                    if (item === null) {
-                        nav.push(React.createElement("hr", { key: hrIndex }));
-                        hrIndex += 1;
-                    } else {
-                        nav.push(React.createElement(SidebarLink, {
-                            key: item.name,
-                            item: item,
-                            mode: _this2.props.mode
-                        }));
-                    }
-                });
-
-                var style = "sidebar";
-                if (this.props.mode === "mini") {
-                    style += " mini";
-                } else {
-                    style += " full";
-                }
-
-                if (this.props.blur) {
-                    style += " blur";
-                }
-
-                return React.createElement(
-                    "div",
-                    { className: style, onClick: function onClick(event) {
-                            return event.stopPropagation();
-                        } },
-                    React.createElement(
-                        "div",
-                        { className: "menu-button", onClick: function onClick() {
-                                return _this2.props.toggleSidebar();
-                            } },
-                        React.createElement("img", { className: "image", src: "resources/menu.svg" })
-                    ),
-                    React.createElement("hr", null),
-                    nav
-                );
-            } catch (ex) {
-                log(ERROR_RENDERING, ex);
-                return null;
+            var style = "sidebar";
+            if (this.props.blur) {
+                style += " blur";
             }
+
+            return React.createElement(
+                "div",
+                { className: style, onClick: function onClick(event) {
+                        return event.stopPropagation();
+                    } },
+                React.createElement(
+                    "div",
+                    { className: "title-text center noselect" },
+                    this.props.title
+                ),
+                React.createElement("hr", null),
+                nav
+            );
         }
     }]);
 
@@ -418,34 +351,21 @@ var SidebarLink = function (_React$Component2) {
     _createClass(SidebarLink, [{
         key: "render",
         value: function render() {
-            try {
-                var style = "link noselect";
-                if (this.props.item.active) {
-                    style += " active";
-                }
-                if (this.props.item.noInvert) {
-                    style += " noinvert";
-                }
-
-                var text = null;
-                if (this.props.mode === "full") {
-                    text = React.createElement(
-                        "div",
-                        { className: "link-text" },
-                        this.props.item.name
-                    );
-                }
-
-                return React.createElement(
-                    "div",
-                    { className: style, title: this.props.item.name, onClick: this.props.item.click },
-                    React.createElement("img", { className: "link-icon", src: this.props.item.icon }),
-                    text
-                );
-            } catch (ex) {
-                log(ERROR_RENDERING, ex);
-                return null;
+            var style = "link noselect";
+            if (this.props.item.active) {
+                style += " active";
             }
+
+            return React.createElement(
+                "div",
+                { className: style, title: this.props.item.name, onClick: this.props.item.click },
+                React.createElement("img", { className: "link-icon", src: this.props.item.icon }),
+                React.createElement(
+                    "div",
+                    { className: "link-text" },
+                    this.props.item.name
+                )
+            );
         }
     }]);
 

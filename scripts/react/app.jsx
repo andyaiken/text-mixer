@@ -5,15 +5,8 @@ class App extends React.Component {
         this.state = {
             sources: [""],
             output: null,
-            view: 0,
-            showSidebar: false
+            view: 0
         };
-    }
-
-    toggleSidebar() {
-        this.setState({
-            showSidebar: !this.state.showSidebar
-        });
     }
 
     newSource() {
@@ -43,43 +36,49 @@ class App extends React.Component {
 
     setContent(sourceIndex, value) {
         this.state.sources[sourceIndex] = value;
-        this.setState(this.state);
-    }
-
-    nudgeValue(source, name, delta) {
-        var value = source[name] + delta;
-        this.changeValue(source, name, value);
-    }
-
-    changeValue(source, name, value) {
-        if (source) {
-            source[name] = value;
-        }
-        this.setState(this.state);
+        this.setState({
+            sources: this.state.sources
+        });
     }
 
     render() {
-        var modal = null;
+        var modalTitle = null;
+        var modalContent = null;
+
         if (this.state.output) {
-            var lines = [];
+            var text = "";
             for (var index = 0; index != this.state.output.length; ++index) {
                 var line = this.state.output[index];
-                lines.push(
-                    <div key={index}>
-                        {line}
+                if (text) {
+                    text += "\n";
+                }
+                text += line;
+            }
+            if (text) {
+                modalTitle = "Output";
+                modalContent = (
+                    <textarea className="form-control" rows={10} value={text} readOnly />
+                );
+            } else {
+                modalTitle = "No Output";
+                modalContent = (
+                    <div>
+                        I couldn't generate any output text. It might help to add more source text.
                     </div>
                 );
             }
+        }
+
+        var modal = null;
+        if (modalTitle && modalContent) {
             modal = (
                 <div className="overlay">
                     <div className="modal-container">
                         <div className="modal-title-bar">
-                            <div className="modal-title noselect">Output</div>
+                            <div className="modal-title noselect">{modalTitle}</div>
                             <img className="modal-btn" src="resources/close.svg" title="Close" onClick={() => this.closeModal()} />
                         </div>
-                        <div className="modal-content-pane">
-                            {lines}
-                        </div>
+                        <div className="modal-content-pane">{modalContent}</div>
                     </div>
                 </div>
             );
@@ -87,40 +86,16 @@ class App extends React.Component {
 
         var sidebarItems = [
             {
-                name: "New Source",
+                name: "New Source Tab",
                 icon: "resources/plus.svg",
                 click: () => this.newSource()
             },
             {
                 name: "Generate Output",
-                icon: "resources/party.svg",
+                icon: "resources/list.svg",
                 click: () => this.generateOutput()
             }
         ];
-
-        var sidebarFull = null;
-        var sidebarMini = null;
-        if (this.state.showSidebar) {
-            sidebarFull = (
-                <div className="overlay" onClick={() => this.toggleSidebar()}>
-                    <Sidebar
-                        mode="full"
-                        items={sidebarItems}
-                        options={this.state.options}
-                        toggleSidebar={() => this.toggleSidebar()}
-                    />
-                </div>
-            );
-        }
-        sidebarMini = (
-            <Sidebar
-                mode="mini"
-                blur={modal !== null}
-                items={sidebarItems}
-                options={this.state.options}
-                toggleSidebar={() => this.toggleSidebar()}
-            />
-        );
 
         var views = [];
         for (var index = 0; index != this.state.sources.length; ++index) {
@@ -133,29 +108,28 @@ class App extends React.Component {
             );
         }
 
-        var content = (
-            <div>
-                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <Selector
-                        tabs={true}
-                        options={views}
-                        selectedID={this.state.view}
-                        select={optionID => this.selectSource(optionID)}
-                    />
-                    <div>
-                        <textarea className="form-control" rows={10} placeholder="text" value={this.state.sources[this.state.view]} onChange={e => this.setContent(this.state.view, e.target.value)} />
-                    </div>
-                </div>
-            </div>
-        );
-
         return (
             <div className="app">
-                {sidebarFull}
                 {modal}
-                {sidebarMini}
-                <div className={this.state.showSidebar ? "page blur" : "page"}>
-                    <div className="content scrollable">{content}</div>
+                <Sidebar
+                    title="Text Mixer"
+                    blur={modal !== null}
+                    items={sidebarItems}
+                />
+                <div className={modal !== null ? "page blur" : "page"}>
+                    <div className="content scrollable">
+                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <Selector
+                                tabs={true}
+                                options={views}
+                                selectedID={this.state.view}
+                                select={optionID => this.selectSource(optionID)}
+                            />
+                            <div>
+                                <textarea className="form-control" rows={10} placeholder="enter text here" value={this.state.sources[this.state.view]} onChange={e => this.setContent(this.state.view, e.target.value)} />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

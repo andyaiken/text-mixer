@@ -228,7 +228,7 @@ textarea {
     min-height: 100px;
 }
 
-.form-control:hover {
+.form-control:hover, .form-control:focus {
     border-color: var(--theme);
 }
  

@@ -18,6 +18,7 @@ var App = function (_React$Component) {
 
         _this.state = {
             sources: [""],
+            model: null,
             output: null,
             view: 0
         };
@@ -40,9 +41,15 @@ var App = function (_React$Component) {
     }, {
         key: "generateOutput",
         value: function generateOutput() {
-            var output = generate(this.state.sources);
+            var model = this.state.model;
+            if (!model) {
+                model = buildModel(this.state.sources);
+            }
+
+            var output = generate(model, 10);
 
             this.setState({
+                model: model,
                 output: output
             });
         }
@@ -58,7 +65,8 @@ var App = function (_React$Component) {
         value: function setContent(sourceIndex, value) {
             this.state.sources[sourceIndex] = value;
             this.setState({
-                sources: this.state.sources
+                sources: this.state.sources,
+                model: null
             });
         }
     }, {
@@ -80,7 +88,19 @@ var App = function (_React$Component) {
                 }
                 if (text) {
                     modalTitle = "Output";
-                    modalContent = React.createElement("textarea", { className: "form-control", rows: 10, value: text, readOnly: true });
+                    modalContent = React.createElement(
+                        "div",
+                        null,
+                        React.createElement("textarea", { className: "form-control", rows: 10, value: text, readOnly: true }),
+                        React.createElement("hr", null),
+                        React.createElement(
+                            "button",
+                            { className: "btn btn-block", onClick: function onClick(e) {
+                                    return _this2.generateOutput();
+                                } },
+                            "Generate More"
+                        )
+                    );
                 } else {
                     modalTitle = "No Output";
                     modalContent = React.createElement(

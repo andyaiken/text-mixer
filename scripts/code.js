@@ -1,22 +1,3 @@
-var requiredResults = 10;
-var allowedFailures = 100;
-
-function generate(sources) {
-    var model = buildModel(sources);
-
-    var lines = [];
-    var failures = 0;
-    while ((lines.length < requiredResults) && (failures < allowedFailures)) {
-        var line = extract(model);
-        if (line && (lines.indexOf(line) === -1))
-            lines.push(line);
-        else
-            failures += 1;
-    }
-
-    return lines;
-}
-
 function buildModel(sources) {
     var model = [];
 
@@ -24,7 +5,9 @@ function buildModel(sources) {
         sources.forEach(source => {
             var lines = source.split(/\r?\n/);
             lines.forEach(line => {
-                addLineToModel(line, model);
+                if (line) {
+                    addLineToModel(line, model);
+                }
             });
         });
     }
@@ -71,7 +54,23 @@ function addLineToModel(line, model) {
     }
 }
 
-function extract(model) {
+function generate(model, requiredResults) {
+    var lines = [];
+    var failures = 0;
+    var allowedFailures = 100;
+
+    while ((lines.length < requiredResults) && (failures < allowedFailures)) {
+        var line = extractLine(model);
+        if (line && (lines.indexOf(line) === -1))
+            lines.push(line);
+        else
+            failures += 1;
+    }
+
+    return lines;
+}
+
+function extractLine(model) {
     var line = String.fromCharCode(0, 1);
 
     while (true) {

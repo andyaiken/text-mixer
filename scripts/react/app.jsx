@@ -4,6 +4,7 @@ class App extends React.Component {
 
         this.state = {
             sources: [""],
+            model: null,
             output: null,
             view: 0
         };
@@ -21,9 +22,15 @@ class App extends React.Component {
     }
 
     generateOutput() {
-        var output = generate(this.state.sources);
+        var model = this.state.model;
+        if (!model) {
+            model = buildModel(this.state.sources);
+        }
+
+        var output = generate(model, 10);
 
         this.setState({
+            model: model,
             output: output
         });
     }
@@ -37,7 +44,8 @@ class App extends React.Component {
     setContent(sourceIndex, value) {
         this.state.sources[sourceIndex] = value;
         this.setState({
-            sources: this.state.sources
+            sources: this.state.sources,
+            model: null
         });
     }
 
@@ -57,7 +65,11 @@ class App extends React.Component {
             if (text) {
                 modalTitle = "Output";
                 modalContent = (
-                    <textarea className="form-control" rows={10} value={text} readOnly />
+                    <div>
+                        <textarea className="form-control" rows={10} value={text} readOnly />
+                        <hr />
+                        <button className="btn btn-block" onClick={e => this.generateOutput()}>Generate More</button>
+                    </div>
                 );
             } else {
                 modalTitle = "No Output";

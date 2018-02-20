@@ -230,3 +230,22 @@ textarea {
 .form-control:hover {
     border-color: var(--theme);
 }
+ 
+.btn {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+    .btn:hover, .btn:focus {
+        border-color: rgb(64, 192, 255);
+        background-color: rgb(64, 192, 255);
+        background-color: rgba(64, 192, 255, 0.2);
+    }
+
+    .btn:focus, .btn:active:focus {
+        outline: none;
+    }

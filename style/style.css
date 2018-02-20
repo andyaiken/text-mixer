@@ -1,6 +1,6 @@
 ﻿:root {
-    --theme: rgba(64, 194, 255, 1.0);
-    --theme2: rgba(64, 194, 255, 0.2);
+    --theme: rgba(220, 20, 60, 1.0);
+    --theme2: rgba(220, 20, 60, 0.25);
 }
 
 html,
@@ -225,6 +225,7 @@ hr {
 
 textarea {
     resize: vertical;
+    min-height: 100px;
 }
 
 .form-control:hover {
@@ -241,9 +242,9 @@ textarea {
 }
 
     .btn:hover, .btn:focus {
-        border-color: rgb(64, 192, 255);
-        background-color: rgb(64, 192, 255);
-        background-color: rgba(64, 192, 255, 0.2);
+        border-color: var(--theme);
+        background-color: var(--theme);
+        background-color: var(--theme2);
     }
 
     .btn:focus, .btn:active:focus {

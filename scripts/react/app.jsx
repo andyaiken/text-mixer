@@ -15,6 +15,15 @@ class App extends React.Component {
         this.selectSource(this.state.sources.length - 1);
     }
 
+    clearSource() {
+        this.setContent(this.state.view, "");
+    }
+
+    closeSource() {
+        this.state.sources.splice(this.state.view, 1);
+        this.selectSource(0);
+    }
+
     selectSource(index) {
         this.setState({
             view: index
@@ -122,6 +131,9 @@ class App extends React.Component {
             );
         }
 
+        var allowClear = this.state.sources[this.state.view] !== "";
+        var allowClose = this.state.sources.length > 1;
+
         return (
             <div className="app">
                 {modal}
@@ -141,6 +153,15 @@ class App extends React.Component {
                             />
                             <div>
                                 <textarea className="form-control" rows={10} placeholder="enter text here" value={this.state.sources[this.state.view]} onChange={e => this.setContent(this.state.view, e.target.value)} />
+                                <hr />
+                                <div className="btn-group btn-group-justified">
+                                    <div className="btn-group">
+                                        <button className="btn" disabled={!allowClear} onClick={e => this.clearSource()}>Clear</button>
+                                    </div>
+                                    <div className="btn-group">
+                                        <button className="btn" disabled={!allowClose} onClick={e => this.closeSource()}>Close</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

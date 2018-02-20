@@ -32,6 +32,17 @@ var App = function (_React$Component) {
             this.selectSource(this.state.sources.length - 1);
         }
     }, {
+        key: "clearSource",
+        value: function clearSource() {
+            this.setContent(this.state.view, "");
+        }
+    }, {
+        key: "closeSource",
+        value: function closeSource() {
+            this.state.sources.splice(this.state.view, 1);
+            this.selectSource(0);
+        }
+    }, {
         key: "selectSource",
         value: function selectSource(index) {
             this.setState({
@@ -167,6 +178,9 @@ var App = function (_React$Component) {
                 });
             }
 
+            var allowClear = this.state.sources[this.state.view] !== "";
+            var allowClose = this.state.sources.length > 1;
+
             return React.createElement(
                 "div",
                 { className: "app" },
@@ -198,7 +212,34 @@ var App = function (_React$Component) {
                                 null,
                                 React.createElement("textarea", { className: "form-control", rows: 10, placeholder: "enter text here", value: this.state.sources[this.state.view], onChange: function onChange(e) {
                                         return _this2.setContent(_this2.state.view, e.target.value);
-                                    } })
+                                    } }),
+                                React.createElement("hr", null),
+                                React.createElement(
+                                    "div",
+                                    { className: "btn-group btn-group-justified" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "btn-group" },
+                                        React.createElement(
+                                            "button",
+                                            { className: "btn", disabled: !allowClear, onClick: function onClick(e) {
+                                                    return _this2.clearSource();
+                                                } },
+                                            "Clear"
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "btn-group" },
+                                        React.createElement(
+                                            "button",
+                                            { className: "btn", disabled: !allowClose, onClick: function onClick(e) {
+                                                    return _this2.closeSource();
+                                                } },
+                                            "Close"
+                                        )
+                                    )
+                                )
                             )
                         )
                     )

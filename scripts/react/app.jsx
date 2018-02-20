@@ -74,11 +74,13 @@ class App extends React.Component {
             modal = (
                 <div className="overlay">
                     <div className="modal-container">
-                        <div className="modal-title-bar">
-                            <div className="modal-title noselect">{modalTitle}</div>
-                            <img className="modal-btn" src="resources/close.svg" title="Close" onClick={() => this.closeModal()} />
+                        <div className="modal-all">
+                            <div className="modal-title-bar">
+                                <div className="modal-title noselect">{modalTitle}</div>
+                                <img className="modal-btn" src="resources/close.svg" title="Close" onClick={() => this.closeModal()} />
+                            </div>
+                            <div className="modal-content-pane">{modalContent}</div>
                         </div>
-                        <div className="modal-content-pane">{modalContent}</div>
                     </div>
                 </div>
             );

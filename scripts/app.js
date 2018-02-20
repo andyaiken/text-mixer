@@ -101,20 +101,24 @@ var App = function (_React$Component) {
                         { className: "modal-container" },
                         React.createElement(
                             "div",
-                            { className: "modal-title-bar" },
+                            { className: "modal-all" },
                             React.createElement(
                                 "div",
-                                { className: "modal-title noselect" },
-                                modalTitle
+                                { className: "modal-title-bar" },
+                                React.createElement(
+                                    "div",
+                                    { className: "modal-title noselect" },
+                                    modalTitle
+                                ),
+                                React.createElement("img", { className: "modal-btn", src: "resources/close.svg", title: "Close", onClick: function onClick() {
+                                        return _this2.closeModal();
+                                    } })
                             ),
-                            React.createElement("img", { className: "modal-btn", src: "resources/close.svg", title: "Close", onClick: function onClick() {
-                                    return _this2.closeModal();
-                                } })
-                        ),
-                        React.createElement(
-                            "div",
-                            { className: "modal-content-pane" },
-                            modalContent
+                            React.createElement(
+                                "div",
+                                { className: "modal-content-pane" },
+                                modalContent
+                            )
                         )
                     )
                 );
@@ -242,12 +246,6 @@ var SelectorOption = function (_React$Component2) {
     }
 
     _createClass(SelectorOption, [{
-        key: "click",
-        value: function click(e) {
-            e.stopPropagation();
-            this.props.select(this.props.option.id);
-        }
-    }, {
         key: "render",
         value: function render() {
             var _this4 = this;
@@ -267,7 +265,7 @@ var SelectorOption = function (_React$Component2) {
             return React.createElement(
                 "div",
                 { key: this.props.option.id, className: style, style: { width: width }, title: this.props.option.text, onClick: function onClick(e) {
-                        return _this4.click(e);
+                        return _this4.props.select(_this4.props.option.id);
                     } },
                 React.createElement(
                     "div",
@@ -285,18 +283,9 @@ var SelectorOption = function (_React$Component2) {
 
     return SelectorOption;
 }(React.Component);
-"use strict";
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Sidebar = function (_React$Component) {
-    _inherits(Sidebar, _React$Component);
+var Sidebar = function (_React$Component3) {
+    _inherits(Sidebar, _React$Component3);
 
     function Sidebar() {
         _classCallCheck(this, Sidebar);
@@ -339,8 +328,8 @@ var Sidebar = function (_React$Component) {
     return Sidebar;
 }(React.Component);
 
-var SidebarLink = function (_React$Component2) {
-    _inherits(SidebarLink, _React$Component2);
+var SidebarLink = function (_React$Component4) {
+    _inherits(SidebarLink, _React$Component4);
 
     function SidebarLink() {
         _classCallCheck(this, SidebarLink);

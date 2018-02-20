@@ -113,11 +113,10 @@ body,
             line-height: 40px;
             vertical-align: middle;
             padding: 0 15px;
-            width: calc(100% - 80px);
+            width: calc(100% - 40px);
         }
 
         .modal-container .modal-title-bar .modal-btn {
-            float: right;
             display: inline-block;
             vertical-align: top;
             margin: 5px;
